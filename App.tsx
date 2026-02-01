@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import ReasonCard from './components/ReasonCard';
-import ComfortZone from './components/ComfortZone';
-import TimeCapsuleSection from './components/TimeCapsuleSection';
-import AudioPlayerSection from './components/AudioPlayerSection';
-import MusicPlaylist from './components/MusicPlaylist';
-import { REASONS } from './data/romanticData';
-import { generateSurpriseMessage } from './services/geminiService';
+import Hero from './components/Hero.tsx';
+import ReasonCard from './components/ReasonCard.tsx';
+import ComfortZone from './components/ComfortZone.tsx';
+import TimeCapsuleSection from './components/TimeCapsuleSection.tsx';
+import AudioPlayerSection from './components/AudioPlayerSection.tsx';
+import MusicPlaylist from './components/MusicPlaylist.tsx';
+import { REASONS } from './data/romanticData.ts';
+import { generateSurpriseMessage } from './services/geminiService.ts';
 
 const App: React.FC = () => {
   const [isNightMode, setIsNightMode] = useState(false);
@@ -58,7 +58,6 @@ const App: React.FC = () => {
 
         <AudioPlayerSection isNightMode={isNightMode} />
         
-        {/* Nova seção baseada no seu código de playlist */}
         <MusicPlaylist isNightMode={isNightMode} />
 
         <section className="py-20 text-center">
