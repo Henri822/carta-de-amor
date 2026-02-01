@@ -1,0 +1,7 @@
+{
+  "name": "Nossa Galáxia Particular",
+  "description": "Um refúgio digital romântico e interativo, projetado para demonstrar amor através de tecnologia, palavras e cuidado constante.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
