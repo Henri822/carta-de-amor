@@ -8,9 +8,17 @@ const SUPABASE_URL = "https://uotxwlivrksvtgmnxdiq.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_OaetYXgJE8bjv0d_ZcNJtw_qRMa_S64";
 // --------------------------------
 
-export const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) 
-  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
-  : null;
+// Tentativa segura de criar o cliente
+let supabaseClient = null;
+try {
+  if (SUPABASE_URL && SUPABASE_ANON_KEY && !SUPABASE_URL.includes("SUA_URL")) {
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (e) {
+  console.error("Erro ao inicializar Supabase:", e);
+}
+
+export const supabase = supabaseClient;
 
 /**
  * Busca áudios da tabela 'arquivos_audio' (Músicas/Uploads manuais)

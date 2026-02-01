@@ -1,11 +1,17 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Proteção para evitar ReferenceError em ambientes onde process não existe (ex: GitHub Pages direto)
+const safeApiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : '';
+
+// Inicializa a IA apenas se a chave existir para evitar erros fatais
+const ai = safeApiKey ? new GoogleGenAI({ apiKey: safeApiKey }) : null;
 
 export const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export async function generateSurpriseMessage() {
+  if (!ai) return "Você é a constante mais bonita em todas as minhas variáveis. (Modo Offline)";
+  
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -23,6 +29,8 @@ export async function generateSurpriseMessage() {
 }
 
 export async function generateRomanticImage(prompt: string) {
+  if (!ai) return null;
+  
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash-image",
@@ -44,7 +52,6 @@ export async function generateRomanticImage(prompt: string) {
     }
     return null;
   } catch (error: any) {
-    // Se for erro de cota, logamos mas retornamos null para o componente tratar
     if (error.message?.includes("429") || error.message?.includes("QUOTA")) {
       console.warn("Cota de IA atingida. Usando banco de imagens reserva.");
     } else {
