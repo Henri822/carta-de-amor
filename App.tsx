@@ -5,6 +5,7 @@ import ReasonCard from './components/ReasonCard';
 import ComfortZone from './components/ComfortZone';
 import TimeCapsuleSection from './components/TimeCapsuleSection';
 import AudioPlayerSection from './components/AudioPlayerSection';
+import MusicPlaylist from './components/MusicPlaylist';
 import { REASONS } from './data/romanticData';
 import { generateSurpriseMessage } from './services/geminiService';
 
@@ -13,7 +14,6 @@ const App: React.FC = () => {
   const [surprise, setSurprise] = useState<string | null>(null);
   const [showSurprise, setShowSurprise] = useState(false);
 
-  // Auto-detect night time or let user toggle
   useEffect(() => {
     const hours = new Date().getHours();
     if (hours >= 20 || hours <= 5) {
@@ -30,7 +30,6 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-1000 ${isNightMode ? 'bg-indigo-950 text-white' : 'bg-rose-50 text-rose-900'}`}>
-      {/* Floating Mode Toggle */}
       <button 
         onClick={() => setIsNightMode(!isNightMode)}
         className="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 hover:scale-110 transition-transform shadow-lg"
@@ -41,7 +40,6 @@ const App: React.FC = () => {
       <Hero isNightMode={isNightMode} />
 
       <main>
-        {/* Reasons Section */}
         <section className="py-20 px-4 max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-romantic text-5xl mb-4">Motivos para te amar</h2>
@@ -59,8 +57,10 @@ const App: React.FC = () => {
         <TimeCapsuleSection isNightMode={isNightMode} />
 
         <AudioPlayerSection isNightMode={isNightMode} />
+        
+        {/* Nova seção baseada no seu código de playlist */}
+        <MusicPlaylist isNightMode={isNightMode} />
 
-        {/* Surprise Trigger */}
         <section className="py-20 text-center">
           <button
             onClick={triggerSurprise}
